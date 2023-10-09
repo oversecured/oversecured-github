@@ -1,0 +1,23 @@
+name: 'oversecured-github'
+description: 'Enterprise vulnerability scanner for Android and iOS apps'
+inputs:
+  access_token:
+    description: |
+        A key should be generated in your [profile settings](https://oversecured.com/settings/api-keys).
+    required: true
+  integration_id:
+    description: |
+        Integration ID, automatically generated when the Integration is created.
+    required: true
+  branch_name:
+    description: |
+        Branch name, `main` is default. You can create your own branches in the Integration settings.
+    required: false
+    default: 'main'
+  app_path:
+    description: |
+        The application file for scanning. Oversecured accepts APK/AAB files for Android and zipped sources for iOS.
+    required: true
+runs:
+  using: 'node20'
+  main: 'index.js'

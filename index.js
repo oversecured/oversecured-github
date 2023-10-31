@@ -46,7 +46,9 @@ async function run() {
         core.info(`Uploading the file to Oversecured...`)
         let putFileResponse
         try {
-            putFileResponse = await axios.put(signInfo['url'], fileData);
+            putFileResponse = await axios.put(signInfo['url'], fileData, {
+                maxBodyLength: Infinity
+            });
         } catch (error) {
             throw new Error(`Failed to upload file: ${error.message}`);
         }

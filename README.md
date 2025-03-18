@@ -9,6 +9,7 @@ This GitHub Action enables you to automatically upload your app versions to Over
 - `integration_id`: Required. The integration ID from Oversecured
 - `branch_name`: Optional. The branch name, `main` is default
 - `app_path`: Required. The path to the app file you wish to upload
+- `delete_running`: Optional. Delete running scan if it exists, `false` is default
 
 ### Usage
 

@@ -18,6 +18,11 @@ inputs:
     description: |
         The application file for scanning. Oversecured accepts APK/AAB files for Android and zipped sources for iOS.
     required: true
+  delete_running:
+    description: |
+        Optional parameter. If set to `true`, already running scans will be deleted. Default is `false`.
+    required: false
+    default: 'false'
 runs:
   using: 'node20'
   main: 'index.js'

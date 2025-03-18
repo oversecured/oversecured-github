@@ -9,6 +9,7 @@ const API_KEY = core.getInput('access_token');
 const INTEGRATION_ID = core.getInput('integration_id');
 const BRANCH_NAME = core.getInput('branch_name') || 'main';
 const APP_PATH = core.getInput('app_path');
+const DELETE_RUNNING = core.getInput('delete_running');
 
 const BASE_URL = 'https://api.oversecured.com/v1';
 const ADD_VERSION = `${BASE_URL}/integrations/${INTEGRATION_ID}/branches/${BRANCH_NAME}/versions/add`;
@@ -18,6 +19,7 @@ async function run() {
         core.info(`App path: ${APP_PATH}`)
         core.info(`Integration ID: ${INTEGRATION_ID}`)
         core.info(`Branch name: ${BRANCH_NAME}`)
+        core.info(`Delete running: ${DELETE_RUNNING}`)
 
         const apiSession = axios.create({
             baseURL: BASE_URL,
@@ -37,10 +39,17 @@ async function run() {
 
         if (bucket_key) {
             core.info(`Creating a new version...`)
-            const addVersionReq = {
+            let addVersionReq = {
                 'file_name': fileName,
                 'bucket_key': bucket_key
             };
+
+            if (DELETE_RUNNING === 'true') {
+                addVersionReq = {
+                    ...addVersionReq,
+                    'delete_running': true
+                }
+            }
 
             let addVersionResponse = await apiSession.post(ADD_VERSION, addVersionReq);
             if (addVersionResponse.status !== 200) {
